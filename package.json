@@ -1,15 +1,13 @@
 {
-	"name": "tools-nlacombe-net",
-	"version": "0.0.1",
-	"license": "MIT",
-	"scripts": {
-		"serve": "http-server src/ -o -a localhost -p 4200",
-		"deploy": "s3-deploy './src/**' --cwd './src/' --bucket tools-nlacombe-net --cache 0 --deleteRemoved"
-	},
-	"private": true,
-	"dependencies": {},
-	"devDependencies": {
-		"http-server": "^0.12.1",
-		"s3-deploy": "^1.3.0"
-	}
+    "name": "tools-nlacombe-net",
+    "version": "1.0.0",
+    "license": "MIT",
+    "scripts": {
+        "start": "live-server src/ --host=localhost --port=4200"
+    },
+    "private": true,
+    "dependencies": {},
+    "devDependencies": {
+        "live-server": "1.2.1"
+    }
 }
