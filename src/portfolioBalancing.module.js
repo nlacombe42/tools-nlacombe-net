@@ -2,18 +2,24 @@ import {getAllCombinations, importUmd, range} from "./util.module.js";
 
 export async function portfolioBalancingComponent(element) {
     const lowdash = await importUmd('https://unpkg.com/lodash@4.17.21');
-    const inputElement = element.querySelector('[data-automation-id="input"]');
+    const securitiesInfoElement = element.querySelector('[data-automation-id="securitiesInfo"]');
+    const cashAmountToInvestElement = element.querySelector('[data-automation-id="cashAmountToInvest"]');
     const resultElement = element.querySelector('[data-automation-id="result"]');
     const calculateElement = element.querySelector('[data-automation-id="calculate"]');
 
-    const calculateAndShowResult = () => {
-        const securitiesInfo = JSON.parse(inputElement.value);
-        const result = getHowManySharesToBuyOfEach(lowdash, securitiesInfo, 2000);
+    const calculateAndShowResult = async () => {
+        const cashAmountToInvest = + cashAmountToInvestElement.value;
+        const securitiesInfo = JSON.parse(securitiesInfoElement.value);
+
+        resultElement.innerText = "Calculating...";
+
+        const result = await getHowManySharesToBuyOfEach(lowdash, securitiesInfo, cashAmountToInvest);
 
         resultElement.innerText = JSON.stringify(result, undefined, 4);
     };
 
-    inputElement.value = JSON.stringify(getDefaultInput(), undefined, 4);
+    securitiesInfoElement.value = JSON.stringify(getDefaultInput(), undefined, 4);
+    cashAmountToInvestElement.value = 2000;
     calculateElement.addEventListener('click', () => calculateAndShowResult());
 
     calculateAndShowResult();
@@ -48,7 +54,7 @@ function getDefaultInput() {
     ];
 }
 
-function getHowManySharesToBuyOfEach(lowdash, securitiesInfo, cashAmountToInvest) {
+async function getHowManySharesToBuyOfEach(lowdash, securitiesInfo, cashAmountToInvest) {
     const currentInvestmentMoney = securitiesInfo
         .map(securityInfo => securityInfo.currentQuantity * securityInfo.price)
         .reduce((aggregate, currentValue) => aggregate + currentValue);

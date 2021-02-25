@@ -51,9 +51,18 @@
     </section>
     <section data-automation-id="portfolioBalancing">
         <h3>Portfolio balancing</h3>
-        <textarea data-automation-id="input" class="form-field" style="height: 400px"></textarea>
-        <button data-automation-id="calculate" type="button">Calculate results</button>
-        <pre data-automation-id="result"></pre>
+        <form>
+            <label class="form-field">
+                Securities info <br />
+                <textarea data-automation-id="securitiesInfo" class="form-field" style="height: 400px"></textarea>
+            </label>
+            <label class="form-field">
+                Cash amount to invest <br />
+                <input data-automation-id="cashAmountToInvest" type="number" step="0.01" />
+            </label>
+            <button data-automation-id="calculate" type="button">Calculate results</button>
+            <pre data-automation-id="result"></pre>
+        </form>
     </section>
 </main>
 </body>
